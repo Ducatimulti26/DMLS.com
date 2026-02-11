@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desert Mountain Legal Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --sand: #E8DDD3;
+    --desert-dark: #1A1410;
+    --terracotta: #C4653A;
+    --terracotta-light: #D4785A;
+    --warm-white: #FAF7F4;
+    --stone: #8B7D6B;
+    --stone-light: #B5A898;
+    --midnight: #0D0B09;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--midnight);
+    color: var(--warm-white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    transition: background 0.5s, backdrop-filter 0.5s;
+  }
+
+  nav.scrolled {
+    background: rgba(13,11,9,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+  }
+
+  .logo-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--stone-light);
+    margin-top: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--stone-light);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--warm-white); }
+
+  .nav-cta {
+    padding: 0.6rem 1.6rem;
+    border: 1px solid var(--terracotta);
+    color: var(--terracotta) !important;
+    transition: all 0.3s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--terracotta);
+    color: var(--warm-white) !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(196,101,58,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 60%, rgba(139,125,107,0.08) 0%, transparent 60%),
+      var(--midnight);
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px;
+  }
+
+  .hero-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(196,101,58,0.15), transparent);
+    transform: translateY(-50%);
+  }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 2rem;
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--warm-white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--stone-light);
+    line-height: 1.7;
+    max-width: 550px;
+    margin: 0 auto 3rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+
+  .btn-primary {
+    padding: 1rem 2.8rem;
+    background: var(--terracotta);
+    color: var(--warm-white);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(196,101,58,0.3); }
+
+  .btn-ghost {
+    padding: 1rem 2.8rem;
+    border: 1px solid var(--stone);
+    color: var(--warm-white);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.4s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--warm-white);
+    background: rgba(250,247,244,0.05);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
+  }
+
+  .scroll-indicator span {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--terracotta), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* SECTION: ABOUT */
+  section {
+    padding: 8rem 4rem;
+    position: relative;
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    color: var(--warm-white);
+  }
+
+  .section-text {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--stone-light);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 500px;
+  }
+
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    inset: 2rem -2rem -2rem 2rem;
+    border: 1px solid rgba(196,101,58,0.15);
+  }
+
+  .about-visual-inner {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(196,101,58,0.08), rgba(139,125,107,0.05));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .about-visual-inner::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,101,58,0.1);
+    animation: breathe 6s infinite ease-in-out;
+  }
+
+  .desert-icon {
+    font-size: 6rem;
+    opacity: 0.15;
+    filter: grayscale(1);
+  }
+
+  /* STATS */
+  .stats-section {
+    background: linear-gradient(180deg, transparent, rgba(196,101,58,0.03), transparent);
+    border-top: 1px solid rgba(250,247,244,0.04);
+    border-bottom: 1px solid rgba(250,247,244,0.04);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 4rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--terracotta);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--stone-light);
+  }
+
+  .stat-divider {
+    width: 30px;
+    height: 1px;
+    background: var(--stone);
+    margin: 0.8rem auto;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .service-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(250,247,244,0.06);
+    cursor: default;
+    transition: all 0.4s;
+  }
+
+  .service-item:first-child {
+    border-top: 1px solid rgba(250,247,244,0.06);
+  }
+
+  .service-item:hover {
+    padding-left: 1.5rem;
+  }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--terracotta);
+    font-weight: 300;
+  }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--warm-white);
+    transition: color 0.3s;
+  }
+
+  .service-item:hover .service-name {
+    color: var(--terracotta);
+  }
+
+  .service-desc {
+    font-size: 0.85rem;
+    color: var(--stone);
+    max-width: 300px;
+    text-align: right;
+    font-weight: 300;
+  }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 10rem 4rem;
+    position: relative;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(196,101,58,0.06);
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .cta-text {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--stone-light);
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid rgba(250,247,244,0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-size: 0.75rem;
+    color: var(--stone);
+    font-weight: 300;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--warm-white); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.15); opacity: 0.5; }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { height: 300px; }
+    .stats { grid-template-columns: 1fr; gap: 2.5rem; }
+    .service-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .service-num { display: none; }
+    .service-desc { text-align: left; max-width: 100%; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">
+    <span class="logo-main">Desert Mountain</span>
+    <span class="logo-sub">Legal Services &mdash; DMLS</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="nav-cta">Member Login</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-tag">Your LegalShield Provider Law Firm</p>
+    <h1 class="hero-title">Legal Support for<br>Arizona & <em>New Mexico</em></h1>
+    <p class="hero-subtitle">Experienced. Dedicated. Here for LegalShield Members across the Southwest.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get Legal Help</a>
+      <a href="#" class="btn-ghost">Member Login</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about">
+    <div class="about-text">
+      <p class="section-tag reveal">Who We Are</p>
+      <h2 class="section-title reveal">The Davis Miles Law Firm team dedicated to <em style="font-style:italic;color:var(--terracotta)">serving you</em></h2>
+      <p class="section-text reveal">Desert Mountain Legal Services (DMLS) is the Davis Miles Law Firm team dedicated to serving LegalShield members in Arizona and New Mexico.</p>
+      <p class="section-text reveal">As the trusted LegalShield provider for AZ &amp; NM, our experienced local attorneys deliver the proven legal support and guidance you need.</p>
+    </div>
+    <div class="about-visual reveal">
+      <div class="about-visual-inner">
+        <svg class="desert-icon" width="120" height="120" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.25">
+          <path d="M60 100V30M60 30C60 20 55 10 50 10M60 30C60 18 65 8 70 8M60 50C55 50 45 45 42 40M60 60C65 60 78 55 80 48M30 100H90" stroke="var(--terracotta)"/>
+          <line x1="20" y1="100" x2="100" y2="100" stroke="var(--stone)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats">
+    <div class="reveal">
+      <div class="stat-number">2</div>
+      <div class="stat-divider"></div>
+      <div class="stat-label">States Served</div>
+    </div>
+    <div class="reveal">
+      <div class="stat-number">AZ &amp; NM</div>
+      <div class="stat-divider"></div>
+      <div class="stat-label">Local Coverage</div>
+    </div>
+    <div class="reveal">
+      <div class="stat-number">100%</div>
+      <div class="stat-divider"></div>
+      <div class="stat-label">LegalShield Focused</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-grid">
+    <div class="services-header">
+      <p class="section-tag reveal">How We Help</p>
+      <h2 class="section-title reveal">How Can We Help You?</h2>
+    </div>
+    <div class="services-list">
+      <div class="service-item reveal">
+        <span class="service-num">01</span>
+        <span class="service-name">Consultations & Advice</span>
+        <span class="service-desc">Expert legal guidance from experienced local attorneys who know your region.</span>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">02</span>
+        <span class="service-name">Document Assistance</span>
+        <span class="service-desc">Professional help preparing, reviewing, and managing your legal documents.</span>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">03</span>
+        <span class="service-name">Representation & Defense</span>
+        <span class="service-desc">Dedicated legal representation when you need it most.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <p class="section-tag reveal">Get Started</p>
+  <h2 class="cta-title reveal">Ready to get the legal<br>support you deserve?</h2>
+  <p class="cta-text reveal">Reach out to our team today.</p>
+  <div class="reveal">
+    <a href="#" class="btn-primary">Contact Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-text">Desert Mountain Legal Services (DMLS) is a practice group of Davis Miles, PLLC.</p>
+  <ul class="footer-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
