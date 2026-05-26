@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Attorneys | Desert Mountain Legal Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --purple: #5B3D8F;
+    --purple-light: #7B5BB5;
+    --purple-glow: rgba(91,61,143,0.15);
+    --purple-subtle: rgba(91,61,143,0.06);
+    --midnight: #0C0A12;
+    --warm-white: #F8F6F3;
+    --silver: #9B95A8;
+    --silver-light: #C4BFD0;
+    --surface: rgba(250,247,244,0.04);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--midnight);
+    color: var(--warm-white);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(12,10,18,0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+  }
+  .logo-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-top: 2px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--silver);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--warm-white); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 10rem 4rem 4rem;
+    text-align: center;
+    position: relative;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
+  }
+  .page-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+  .page-header p {
+    color: var(--silver-light);
+    font-weight: 300;
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* STATE SECTIONS */
+  .state-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .state-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--warm-white);
+    margin-bottom: 0.5rem;
+  }
+  .state-section-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--purple);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ATTORNEY GRID */
+  .attorney-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 2rem;
+  }
+  .attorney-card {
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .attorney-card:hover {
+    transform: translateY(-4px);
+  }
+  .attorney-photo {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 1rem;
+    border-radius: 0;
+    overflow: hidden;
+    border: 2px solid rgba(91,61,143,0.2);
+    background: rgba(91,61,143,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s;
+  }
+  .attorney-card:hover .attorney-photo {
+    border-color: var(--purple-light);
+  }
+  .attorney-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(20%);
+    transition: filter 0.3s;
+  }
+  .attorney-card:hover .attorney-photo img {
+    filter: grayscale(0%);
+  }
+  .attorney-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--purple-light);
+    font-weight: 300;
+  }
+  .attorney-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--warm-white);
+    margin-bottom: 0.2rem;
+  }
+  .attorney-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--silver);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .footer-legal { max-width: 800px; margin: 0 auto; text-align: center; }
+  .footer-text { font-size: 0.7rem; color: var(--silver); font-weight: 300; line-height: 1.7; }
+  .footer-text strong { color: var(--silver-light); font-weight: 400; }
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    justify-content: center;
+  }
+  .footer-links a {
+    font-size: 0.75rem;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--warm-white); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .page-header { padding: 8rem 1.5rem 3rem; }
+    .state-section { padding: 3rem 1.5rem; }
+    .attorney-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.5rem; }
+    footer { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <span class="logo-main">Desert Mountain</span>
+    <span class="logo-sub">Legal Services &mdash; DMLS</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#resources">Resources</a></li>
+    <li><a href="index.html#request">Request Service</a></li>
+    <li><a href="attorneys.html" style="color:var(--warm-white);">Attorneys</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <h1>Our Attorneys</h1>
+  <p>Davis Miles, PLLC attorneys serving LegalShield members across Arizona and New Mexico.</p>
+</div>
+
+<div class="state-section">
+  <h2 class="state-section-title">Arizona</h2>
+  <div class="state-section-divider"></div>
+  <div class="attorney-grid">
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/David-Bacon-clipped_NEW.png" alt="David I. Bacon" loading="lazy"/></div>
+        <h3 class="attorney-name">David I. Bacon</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/04/taylor-headshot.png" alt="Taylor Barlow" loading="lazy"/></div>
+        <h3 class="attorney-name">Taylor Barlow</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Gwen-Bjornson-clipped-NEW.png" alt="Gwendolyn Bjornson" loading="lazy"/></div>
+        <h3 class="attorney-name">Gwendolyn Bjornson</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Sergio-Campo-clipped.png" alt="Sergio T. Campa" loading="lazy"/></div>
+        <h3 class="attorney-name">Sergio T. Campa</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Nidhi-Naik-clipped.png" alt="Nidhi Naik Cerefice" loading="lazy"/></div>
+        <h3 class="attorney-name">Nidhi Naik Cerefice</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Charles-Davis-clipped-NEW.png" alt="Charles E. Davis" loading="lazy"/></div>
+        <h3 class="attorney-name">Charles E. Davis</h3>
+        <span class="attorney-title">Founder</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/12/IMG_2229-copy.png" alt="Paul Davis" loading="lazy"/></div>
+        <h3 class="attorney-name">Paul Davis</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/06/emily-headshot1.png" alt="Emily M. DeGennaro" loading="lazy"/></div>
+        <h3 class="attorney-name">Emily M. DeGennaro</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Ike-Attorney-headshot.png" alt="Ike Z. Devji" loading="lazy"/></div>
+        <h3 class="attorney-name">Ike Z. Devji</h3>
+        <span class="attorney-title">Of Counsel</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Jason-Irwin-clipped.png" alt="Jason Erwin" loading="lazy"/></div>
+        <h3 class="attorney-name">Jason Erwin</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2026/01/JoAnn-Falgout_headshot.png" alt="JoAnn Falgout" loading="lazy"/></div>
+        <h3 class="attorney-name">JoAnn Falgout</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/mike-ferrin-headshot.png" alt="Michael L. Ferrin" loading="lazy"/></div>
+        <h3 class="attorney-name">Michael L. Ferrin</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Luke-Finch-clipped.png" alt="Luke Finch" loading="lazy"/></div>
+        <h3 class="attorney-name">Luke Finch</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Kevin-Fine-clipped.png" alt="Kevin P. Fine" loading="lazy"/></div>
+        <h3 class="attorney-name">Kevin P. Fine</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/10/shelley-freeman-headshot.png" alt="Shelley Freeman" loading="lazy"/></div>
+        <h3 class="attorney-name">Shelley Freeman</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Douglas-Gardner-clipped.png" alt="Douglas C. Gardner" loading="lazy"/></div>
+        <h3 class="attorney-name">Douglas C. Gardner</h3>
+        <span class="attorney-title">Of Counsel</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Preston-Gardner-clipped-NEW.png" alt="M. Preston Gardner" loading="lazy"/></div>
+        <h3 class="attorney-name">M. Preston Gardner</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Michael-Girgenti-clipped.png" alt="Michael Girgenti" loading="lazy"/></div>
+        <h3 class="attorney-name">Michael Girgenti</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/02/jami_goldman.png" alt="Jami Goldman" loading="lazy"/></div>
+        <h3 class="attorney-name">Jami Goldman</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/goldsen-marc-headshot.png" alt="Marc C. Goldsen" loading="lazy"/></div>
+        <h3 class="attorney-name">Marc C. Goldsen</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Jan-Hutchison-clipped.png" alt="Janet B. Hutchison" loading="lazy"/></div>
+        <h3 class="attorney-name">Janet B. Hutchison</h3>
+        <span class="attorney-title">Of Counsel</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/06/nick-johnson.png" alt="Nick Johnson" loading="lazy"/></div>
+        <h3 class="attorney-name">Nick Johnson</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Charlotte-Johnson-clippws.png" alt="Charlotte C. Johnson" loading="lazy"/></div>
+        <h3 class="attorney-name">Charlotte C. Johnson</h3>
+        <span class="attorney-title">Of Counsel</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Ron-Jones-clipped.png" alt="Ronald L. Jones" loading="lazy"/></div>
+        <h3 class="attorney-name">Ronald L. Jones</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/05/Miriam-Jordan-headshot.png" alt="Mariam Jordan" loading="lazy"/></div>
+        <h3 class="attorney-name">Mariam Jordan</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Christopher-Kalabus-clipped-NEW.png" alt="Christopher Kalabus" loading="lazy"/></div>
+        <h3 class="attorney-name">Christopher Kalabus</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/10/josh-associate.png" alt="Joshua D. Kalanick" loading="lazy"/></div>
+        <h3 class="attorney-name">Joshua D. Kalanick</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Marisa-Kotalik-clipped.png" alt="Marisa K. Kotalik" loading="lazy"/></div>
+        <h3 class="attorney-name">Marisa K. Kotalik</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+
+      <div class="attorney-card">
+        <div class="attorney-photo"><div class="attorney-initials">SL</div></div>
+        <h3 class="attorney-name">Sarah Lemley</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Pernell-Marcelli-clipped.png" alt="Pernell W. McGuire" loading="lazy"/></div>
+        <h3 class="attorney-name">Pernell W. McGuire</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Stephanie-Mcneil-clipped.png" alt="Stephanie Mcneil" loading="lazy"/></div>
+        <h3 class="attorney-name">Stephanie Mcneil</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Bimal-Merchant-clipped.png" alt="Bimal Merchant" loading="lazy"/></div>
+        <h3 class="attorney-name">Bimal Merchant</h3>
+        <span class="attorney-title">Of Counsel</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Philip-Mueller-clipped.png" alt="Philip Mueller" loading="lazy"/></div>
+        <h3 class="attorney-name">Philip Mueller</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Tracy-Perez-clipped.png" alt="Tracy Perez" loading="lazy"/></div>
+        <h3 class="attorney-name">Tracy Perez</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/05/headshot-gregory-reinhart-attorney-az.png" alt="Gregory Reinhart" loading="lazy"/></div>
+        <h3 class="attorney-name">Gregory Reinhart</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Ed-Richardson-clipped.png" alt="Edmund F. Richardson" loading="lazy"/></div>
+        <h3 class="attorney-name">Edmund F. Richardson</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/IMG_0800-copy.png" alt="Russell Richelsoph" loading="lazy"/></div>
+        <h3 class="attorney-name">Russell Richelsoph</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/12/Spencer-Schiefer_-copy.png" alt="Spencer Schiefer" loading="lazy"/></div>
+        <h3 class="attorney-name">Spencer Schiefer</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/J-Kyle-Scoresby-clipped.png" alt="J. Kyle Scoresby" loading="lazy"/></div>
+        <h3 class="attorney-name">J. Kyle Scoresby</h3>
+        <span class="attorney-title">Of Counsel</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Robert-Sewell-clipped.png" alt="Robert N. Sewell" loading="lazy"/></div>
+        <h3 class="attorney-name">Robert N. Sewell</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Alan-Soelberg-clipped.png" alt="Alan Soelberg" loading="lazy"/></div>
+        <h3 class="attorney-name">Alan Soelberg</h3>
+        <span class="attorney-title">Managing Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Eileen-Spangrud-clipped.png" alt="Eileen L. Spangrud" loading="lazy"/></div>
+        <h3 class="attorney-name">Eileen L. Spangrud</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/07/charles-thompson_headshot.png" alt="Charles Thompson" loading="lazy"/></div>
+        <h3 class="attorney-name">Charles Thompson</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Jenn-Wasserman-clipped.png" alt="Jennifer Wassermann" loading="lazy"/></div>
+        <h3 class="attorney-name">Jennifer Wassermann</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Jason-Webb-clipped.png" alt="Jason Webb" loading="lazy"/></div>
+        <h3 class="attorney-name">Jason Webb</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/06/David-Weismann-headshot.png" alt="David I. Weissman" loading="lazy"/></div>
+        <h3 class="attorney-name">David I. Weissman</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/05/Lindsey-headshot.png" alt="Lindsey Whitney" loading="lazy"/></div>
+        <h3 class="attorney-name">Lindsey Whitney</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/David-Williams-Headshot.png" alt="David W. Williams" loading="lazy"/></div>
+        <h3 class="attorney-name">David W. Williams</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+  </div>
+</div>
+
+<div class="state-section" style="padding-top:2rem;">
+  <h2 class="state-section-title">New Mexico</h2>
+  <div class="state-section-divider"></div>
+  <div class="attorney-grid">
+      <div class="attorney-card">
+        <div class="attorney-photo"><div class="attorney-initials">IMC</div></div>
+        <h3 class="attorney-name">Ingrid M. Carlin</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/08/sami-attorney-headshot.png" alt="Sami Elamad" loading="lazy"/></div>
+        <h3 class="attorney-name">Sami Elamad</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/08/Ron-Holmes-headshot.png" alt="Ron Holmes" loading="lazy"/></div>
+        <h3 class="attorney-name">Ron Holmes</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/07/matthew-huggins-headshot-transparent.png" alt="Matthew Huggins" loading="lazy"/></div>
+        <h3 class="attorney-name">Matthew Huggins</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2023/12/Charles-McEwee-clipped.png" alt="Charles L. McElwee" loading="lazy"/></div>
+        <h3 class="attorney-name">Charles L. McElwee</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/11/Raul-Rally-Mijares-headshot.png" alt="Raul Mijares" loading="lazy"/></div>
+        <h3 class="attorney-name">Raul Mijares</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/07/daniel-headshot.png" alt="Daniel Pick" loading="lazy"/></div>
+        <h3 class="attorney-name">Daniel Pick</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2025/09/Nicholas_Valdez-headshot.png" alt="Nicholas Valdez" loading="lazy"/></div>
+        <h3 class="attorney-name">Nicholas Valdez</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/08/daniel-davis-miles-attorney.png" alt="Daniel Walton" loading="lazy"/></div>
+        <h3 class="attorney-name">Daniel Walton</h3>
+        <span class="attorney-title">Attorney</span>
+      </div>
+      <div class="attorney-card">
+        <div class="attorney-photo"><img src="https://www.davismiles.com/wp-content/uploads/2024/07/Joe-Wiseman-headshot.png" alt="Joe Wiseman" loading="lazy"/></div>
+        <h3 class="attorney-name">Joe Wiseman</h3>
+        <span class="attorney-title">Partner</span>
+      </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-legal">
+    <p class="footer-text" style="margin-bottom:0.8rem;"><strong>Desert Mountain Legal Services (DMLS) is a practice group and sub-brand of Davis Miles, PLLC. All legal services are provided by Davis Miles, PLLC, an Arizona professional limited liability company. DMLS is not a separate law firm and does not independently provide legal services.</strong></p>
+    <p class="footer-text" style="font-style:italic;">The materials on this site are provided for informational purposes only and do not constitute legal advice on any matter.</p>
+  </div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#services">How It Works</a></li>
+    <li><a href="index.html#resources">Resources</a></li>
+    <li><a href="attorneys.html">Attorneys</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

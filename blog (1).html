@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | Desert Mountain Legal Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --purple: #5B3D8F;
+    --purple-light: #7B5BB5;
+    --purple-glow: rgba(91,61,143,0.15);
+    --purple-subtle: rgba(91,61,143,0.06);
+    --midnight: #0C0A12;
+    --warm-white: #F8F6F3;
+    --silver: #9B95A8;
+    --silver-light: #C4BFD0;
+    --surface: rgba(250,247,244,0.04);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--midnight);
+    color: var(--warm-white);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(12,10,18,0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--warm-white);
+  }
+  .logo-sub {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-top: 2px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--silver);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--warm-white); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 10rem 4rem 4rem;
+    text-align: center;
+    position: relative;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
+  }
+  .page-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+  .page-header p {
+    color: var(--silver-light);
+    font-weight: 300;
+    font-size: 1.05rem;
+  }
+
+  /* BLOG LAYOUT */
+  .blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem 8rem;
+  }
+
+  .blog-post {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--surface);
+  }
+  .blog-post:last-child { border-bottom: none; }
+
+  .blog-post-date {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--purple-light);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .blog-post-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--warm-white);
+  }
+  .blog-post-body {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--silver-light);
+    line-height: 1.9;
+  }
+  .blog-post-body p { margin-bottom: 1.5rem; }
+  .blog-post-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--warm-white);
+    margin: 2.5rem 0 1rem;
+  }
+  .blog-post-body ul {
+    list-style: none;
+    margin-bottom: 1.5rem;
+    padding-left: 0;
+  }
+  .blog-post-body ul li {
+    padding: 0.4rem 0 0.4rem 1.5rem;
+    position: relative;
+  }
+  .blog-post-body ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.9rem;
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--purple-light);
+    border-radius: 50%;
+  }
+  .blog-post-body a {
+    color: var(--purple-light);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(123,91,181,0.3);
+    transition: border-color 0.3s;
+  }
+  .blog-post-body a:hover { border-color: var(--purple-light); }
+
+  .blog-cta {
+    margin-top: 2rem;
+    padding: 2rem;
+    border: 1px solid var(--surface);
+    background: var(--purple-subtle);
+  }
+  .blog-cta p {
+    font-size: 0.9rem;
+    color: var(--silver-light);
+    margin-bottom: 0;
+  }
+  .blog-cta strong { color: var(--warm-white); font-weight: 500; }
+
+  /* BACK LINK */
+  .back-link {
+    display: inline-block;
+    color: var(--purple-light);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--warm-white); }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .footer-legal { max-width: 800px; margin: 0 auto; text-align: center; }
+  .footer-text { font-size: 0.7rem; color: var(--silver); font-weight: 300; line-height: 1.7; }
+  .footer-text strong { color: var(--silver-light); font-weight: 400; }
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    justify-content: center;
+  }
+  .footer-links a {
+    font-size: 0.75rem;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--warm-white); }
+
+  .blog-disclaimer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 1px solid var(--surface);
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .blog-disclaimer p {
+    font-size: 0.7rem;
+    color: var(--silver);
+    font-weight: 300;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .page-header { padding: 8rem 1.5rem 3rem; }
+    .blog-container { padding: 2rem 1.5rem 6rem; }
+    footer { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <span class="logo-main">Desert Mountain</span>
+    <span class="logo-sub">Legal Services &mdash; DMLS</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#resources">Resources</a></li>
+    <li><a href="index.html#request">Request Service</a></li>
+    <li><a href="blog.html" style="color:var(--warm-white);">Blog</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <h1>Legal Insights</h1>
+  <p>Tips, guidance, and resources for LegalShield members in Arizona &amp; New Mexico.</p>
+</div>
+
+<div class="blog-container">
+
+  <div class="blog-disclaimer">
+    <p>The information provided on this blog is for general informational purposes only and does not constitute legal advice. For advice specific to your situation, contact your provider law firm through LegalShield.</p>
+  </div>
+
+  <!-- POST 1 -->
+  <article class="blog-post" id="post1">
+    <span class="blog-post-date">January 2026</span>
+    <h2 class="blog-post-title">5 Legal Prep Steps to Start 2026 Right</h2>
+    <div class="blog-post-body">
+      <p>A new year is the perfect time to get your legal house in order. Whether you are a long-time LegalShield member or just getting started, these five steps will help you feel more confident and protected heading into 2026.</p>
+
+      <h3>1. Organize Your Vital Documents</h3>
+      <p>When was the last time you saw your birth certificate, Social Security card, or property deed? Make sure you know where your essential legal documents are stored and that they are easily accessible. Consider a fireproof safe or a secure digital backup.</p>
+
+      <h3>2. Review or Create Your Will</h3>
+      <p>If you do not have a will, your LegalShield membership includes will preparation at no extra cost. If you already have one, review it to make sure it reflects your current wishes, especially after any major life changes like a marriage, divorce, new child, or relocation.</p>
+
+      <h3>3. Check Your Beneficiary Designations</h3>
+      <p>Life insurance policies, retirement accounts, and bank accounts all have beneficiary designations that override your will. Make sure these are up to date. It is one of the most commonly overlooked steps in estate planning.</p>
+
+      <h3>4. Understand Your Rights as a Renter or Homeowner</h3>
+      <p>Whether you rent or own, knowing your rights can save you thousands. Arizona and New Mexico have specific tenant protections and homeowner statutes. Your provider attorney can walk you through what applies to your situation.</p>
+
+      <h3>5. Set Up a Power of Attorney and Healthcare Directive</h3>
+      <p>These documents ensure that someone you trust can make financial and medical decisions on your behalf if you are unable to do so. They are essential at any age, not just for seniors.</p>
+
+      <div class="blog-cta">
+        <p><strong>LegalShield members:</strong> Call us at 602-285-4664 (AZ) or 505-246-0231 (NM) to get started on any of these steps. Will preparation and document review are included in your membership.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- POST 2 -->
+  <article class="blog-post" id="post2">
+    <span class="blog-post-date">November 2025</span>
+    <h2 class="blog-post-title">Got Scammed? Here's How to Get Your Money Back</h2>
+    <div class="blog-post-body">
+      <p>Fraud and scams are on the rise across Arizona and New Mexico. If you have been a victim, time is critical. Here is what you need to know about recovering your money and protecting yourself going forward.</p>
+
+      <h3>Credit Cards Offer the Best Protection</h3>
+      <p>Under federal law, your maximum liability for unauthorized credit card charges is $50, and most card issuers waive even that. If you spot a fraudulent charge, report it to your credit card company immediately. You generally have 60 days from the statement date to dispute.</p>
+
+      <h3>Debit Cards Have Stricter Deadlines</h3>
+      <p>With debit cards, your liability depends on how fast you report the fraud:</p>
+      <ul>
+        <li>Within 2 business days: maximum $50 liability</li>
+        <li>Between 2 and 60 days: up to $500 liability</li>
+        <li>After 60 days: you could lose everything in the account</li>
+      </ul>
+
+      <h3>What Your LegalShield Membership Can Do</h3>
+      <p>Your provider attorney can write demand letters to businesses, contact financial institutions on your behalf, review settlement offers, and advise you on whether to pursue legal action. If you have been scammed, do not wait. Call us.</p>
+
+      <div class="blog-cta">
+        <p><strong>Think you have been scammed?</strong> Contact your provider law firm right away. Your attorney can advise you on next steps and take action on your behalf as part of your membership benefits.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- POST 3 -->
+  <article class="blog-post" id="post3">
+    <span class="blog-post-date">2026</span>
+    <h2 class="blog-post-title">What Every New LegalShield Member Needs to Know</h2>
+    <div class="blog-post-body">
+      <p>Congratulations on becoming a LegalShield member. You now have a team of experienced attorneys at Davis Miles, PLLC standing by to help you with your legal needs. Here is how to make the most of your membership from day one.</p>
+
+      <h3>How to Contact Your Provider Law Firm</h3>
+      <p>You can reach us by phone or through the LegalShield mobile app. When you call, you will speak with our intake team who will take down the details of your legal matter and connect you with the right attorney.</p>
+      <ul>
+        <li>Arizona: 602-285-4664</li>
+        <li>New Mexico: 505-246-0231</li>
+        <li>LegalShield Member Services: 800-654-7757</li>
+      </ul>
+
+      <h3>What to Have Ready When You Call</h3>
+      <p>To get the most efficient service, have the following ready:</p>
+      <ul>
+        <li>Your LegalShield member number</li>
+        <li>A brief summary of your legal issue</li>
+        <li>Any relevant documents (contracts, letters, notices)</li>
+        <li>The name of the opposing party, if applicable</li>
+        <li>The best phone number to reach you for a callback</li>
+      </ul>
+
+      <h3>What to Expect</h3>
+      <p>An experienced attorney will contact you within 8 business hours. From there, your attorney will provide legal advice, review documents, write letters, or make phone calls on your behalf as needed. If your matter requires services beyond your membership benefits, you will receive a discounted rate.</p>
+
+      <h3>Get Your Will Done</h3>
+      <p>One of the most valuable benefits of your membership is will preparation. Do not put this off. Complete your Will Questionnaire (available in English and Spanish on our Resources page) and submit it to get the process started.</p>
+
+      <div class="blog-cta">
+        <p><strong>Welcome to the family.</strong> We are proud to be your provider law firm. If you have questions about your membership or need legal help, do not hesitate to call. That is what we are here for.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- POST 4 -->
+  <article class="blog-post" id="post4">
+    <span class="blog-post-date">2026</span>
+    <h2 class="blog-post-title">Security Cameras at Home: Know the Law in Arizona and New Mexico</h2>
+    <div class="blog-post-body">
+      <p>Home security cameras have become commonplace, but many homeowners are not aware of the legal boundaries around recording. Here is what you need to know in Arizona and New Mexico.</p>
+
+      <h3>General Rules</h3>
+      <p>In both states, you are generally allowed to record video on your own property, including areas visible from your property like sidewalks and streets. However, there are important limitations:</p>
+      <ul>
+        <li>You cannot point cameras into areas where someone has a reasonable expectation of privacy (neighboring windows, bathrooms, etc.)</li>
+        <li>Audio recording has different rules than video recording and may require consent</li>
+        <li>HOA rules may impose additional restrictions on camera placement</li>
+      </ul>
+
+      <h3>Arizona Specifics</h3>
+      <p>Arizona is a one-party consent state for audio recording, meaning at least one party to the conversation must consent. Recording a conversation you are not part of without consent could violate wiretapping laws.</p>
+
+      <h3>New Mexico Specifics</h3>
+      <p>New Mexico also follows one-party consent for audio recording. The state has strong privacy protections, so be especially careful about camera angles that could capture neighboring private spaces.</p>
+
+      <div class="blog-cta">
+        <p><strong>Not sure about your setup?</strong> Your LegalShield attorney can review your camera placement and advise you on compliance with state and local laws. Call us before you install, not after you get a complaint.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- POST 5 -->
+  <article class="blog-post" id="post5">
+    <span class="blog-post-date">2025</span>
+    <h2 class="blog-post-title">5 Common Legal Questions Answered</h2>
+    <div class="blog-post-body">
+      <p>Our attorneys field hundreds of calls every day. Here are five of the most common questions we hear from LegalShield members in Arizona and New Mexico.</p>
+
+      <h3>1. Are traffic tickets criminal matters?</h3>
+      <p>Yes. Traffic violations are classified as criminal matters and handled in criminal court. Even a simple speeding ticket creates a criminal record. Your LegalShield membership includes consultation on traffic matters, and representation may be available at a discounted rate.</p>
+
+      <h3>2. Can my landlord enter my apartment without notice?</h3>
+      <p>In Arizona, landlords must provide at least two days' written notice before entering, except in emergencies. New Mexico requires "reasonable notice," which is generally interpreted as 24 hours. If your landlord is entering without proper notice, call your provider attorney.</p>
+
+      <h3>3. Do I really need a will if I do not have much?</h3>
+      <p>Yes. Without a will, the state decides who gets your assets and, more importantly, who cares for your minor children. Your LegalShield membership includes will preparation. There is no reason not to have one.</p>
+
+      <h3>4. Someone owes me money. Can my attorney help?</h3>
+      <p>Absolutely. Your provider attorney can write a demand letter, which often resolves the matter without going to court. If it does not, your attorney can advise you on small claims court or other options.</p>
+
+      <h3>5. What should I do if I get a cease and desist letter?</h3>
+      <p>Do not ignore it, but do not panic. A cease and desist letter is not a lawsuit. Call your provider attorney right away so they can review the letter, advise you on your obligations, and respond on your behalf if needed.</p>
+
+      <div class="blog-cta">
+        <p><strong>Have a legal question?</strong> That is exactly what your membership is for. No question is too small. Call us at 602-285-4664 (AZ) or 505-246-0231 (NM).</p>
+      </div>
+    </div>
+  </article>
+
+</div>
+
+<footer>
+  <div class="footer-legal">
+    <p class="footer-text" style="margin-bottom:0.8rem;"><strong>Desert Mountain Legal Services (DMLS) is a practice group and sub-brand of Davis Miles, PLLC. All legal services are provided by Davis Miles, PLLC, an Arizona professional limited liability company. DMLS is not a separate law firm and does not independently provide legal services.</strong></p>
+    <p class="footer-text" style="margin-bottom:0.6rem; font-style:italic;">All legal services will be provided subject to the terms of an engagement agreement to be entered into between the client and Davis Miles, PLLC.</p>
+    <p class="footer-text" style="font-style:italic;">The materials on this site are provided for informational purposes only and do not constitute legal advice on any matter. Davis Miles, PLLC assumes no responsibility for the accuracy or timeliness of any information provided herein. The reader should not under any circumstances rely on, or act on the basis of, the materials on this site. These materials and information are not a substitute for obtaining legal advice from the reader's own lawyer in the appropriate jurisdiction or state.</p>
+  </div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#services">How It Works</a></li>
+    <li><a href="index.html#resources">Resources</a></li>
+    <li><a href="index.html#request">Request Service</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
